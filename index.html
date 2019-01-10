@@ -5,16 +5,34 @@
     <title>Pokemon</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- <script src="js/app.js"></script> -->
-    <script src="test.js"></script>
+    <script src="js/app.js"></script>
+    <!-- <script src="test.js"></script> -->
   </head>
 
   <body>
-    <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="title-image">
-    <input type="text" id="input" value="ability">
 
-    <div class="character"></div>
-    
-  </body>
+    <header id="title-banner">
+      <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="title-image" class="character">
+      <h1>Pokédex</h1>
+    </header>
+
+    <div id="pokemon-search">
+      <label for="pokemon-search">Pokemon Search - Type in Name of Number</label>
+      <div class="main-menu">
+
+          <div>
+            <form>
+            <input type="text" id="pokemon-input" placeholder="Name/Number">
+            </form>
+          </div>
+          <div>
+            <a class="interface-button" onclick="">Search</a>
+          </div>
+
+      </div>
+</div>
+
+
+</body>
 
 </html>
