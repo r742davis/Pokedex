@@ -3,7 +3,7 @@ $(() => {
 const inputValue = $('#input').val()
 
 const promise = $.ajax({
-  url: "https://pokeapi.co/api/v2/"
+  url: "https://pokeapi.co/api/v2/encounter-method/"
 });
 
 promise.then(

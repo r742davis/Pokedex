@@ -3,6 +3,12 @@
   width: 500px;
 }
 
+.character {
+  background-color: red;
+  height: 100px;
+  width: 100px;
+}
+
 @media () {
 
 }
