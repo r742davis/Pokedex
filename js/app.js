@@ -1,5 +1,6 @@
 $(() => {
 
+let pokemonDisplayBox = true;
 //Submit value from input box
 $('#submit-value').on('click', (data) => {
   const pokemonInput = $('#input').val().toLowerCase()
@@ -10,6 +11,7 @@ $('#submit-value').on('click', (data) => {
     method: "GET"
   });
 
+if (pokemonDisplayBox === true) {
   promise1.then(
     (data) => {
 //Create pokemon ID
@@ -125,13 +127,13 @@ $('#submit-value').on('click', (data) => {
 
       // for(let i = 0; i <= 76; i++){
       //     const pokemonMoves = $('<p>').text(data.moves[i].move.name).addClass('sprite')
-      //     $('#pokemon_search').append(pokemonMoves)
+      //     $('#pokemon-index').append(pokemonMoves)
       // }
 
 //Attaching all pokemon elements
       $(typeDiv)
         .append(type1)
-      $('#pokemon_search')
+      $('#pokemon-index')
         .append(pokemonSprite)
         .append(pokemonID)
         .append(pokemonName)
@@ -143,14 +145,18 @@ $('#submit-value').on('click', (data) => {
 //Wrap sprite with div
       $(pokemonSprite).wrap("<div class='sprite-wrap' />");
 
+      pokemonDisplayBox = false;
+
     },
     () => {
       console.log('Bad request');
     },
   )
+}
 
 });
 
+//Generate a random pokemon with "Random Pokemon" button
 $("#random-value").on("click", (data) => {
 //Create functions that generate random numbers from 0 to 718
   const randomNum = (min, max) => {
@@ -281,7 +287,7 @@ $("#random-value").on("click", (data) => {
 //Attaching all pokemon elements
       $(typeDiv)
         .append(type1)
-      $('#pokemon_search')
+      $('#pokemon-index')
         .append(pokemonSprite)
         .append(pokemonID)
         .append(pokemonName)
@@ -303,7 +309,9 @@ $("#random-value").on("click", (data) => {
 });
 
 $('#reset').on('click', () => {
-  $('form').css('display', 'none')
+  $('#pokemon-index').children().remove()
+  pokemonDisplayBox = true;
+  // css('display', 'none')
 })
 
 

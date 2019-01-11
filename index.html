@@ -14,15 +14,16 @@
       <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="title-image" class="character">
     </header>
 
-    <div id="pokemon_search">
+    <div id="pokemon-search-div">
     <label for="pokemon_search">Pokemon Search - Type in Name of Number</label>
       <div>
         <form onkeypress="return event.keyCode != 13">
             <input type='text' placeholder="Name/Number" id="input" value="" />
             <input type='button' value="Submit" id="submit-value" />
-            <input type="button" value="Reset" id="reset-value" />
+            <input type="button" value="Reset" id="reset" />
             <input type="button" value="Random Pokemon" id="random-value"
         </form>
+        <div id="pokemon-index"></div>
       </div>
     </div>
 
