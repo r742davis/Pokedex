@@ -5,7 +5,7 @@ body {
 }
 
 
-#title_image {
+#title-image {
   height: auto;
   width: 200px;
   z-index: 2;
@@ -14,7 +14,7 @@ body {
   margin-top: 20px;
 }
 
-#title_box {
+#title-box {
   background-color: white;
   width: 300px;
   height: 100px;
@@ -33,13 +33,18 @@ header h1 {
   text-align: center;
   font-family: 'Roboto', sans-serif;
   text-shadow: 0 1px 2px rgba(0,0,0,0.60);
-  hsl(192, 17%, 99%);
 }
 
 .sprite {
   width: 200px;
   height: 200px;
   animation: slide-in-blurred-right 1.0s cubic-bezier(0.850, 1.000, 0.150, 1.000) both;
+}
+
+.sprite-wrap {
+  background-color: green;
+  width: 200px;
+  height: 200px;
 }
 
 .capitalize-name {

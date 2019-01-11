@@ -11,22 +11,27 @@ $(() => {
 
 
 
-$('#submit_value').on('click', (data) => {
+$('#submit-value').on('click', (data) => {
   const pokemonInput = $('#input').val().toLowerCase()
   console.log(pokemonInput);
 
-  const promise = $.ajax({
-    url: "https://pokeapi.co/api/v2/pokemon/"+pokemonInput+"/"
+  const promise1 = $.ajax({
+    url: "https://pokeapi.co/api/v2/pokemon/"+pokemonInput+"/",
+    method: "GET"
   });
 
-  promise.then(
+  const promise2 = $.ajax({
+    url: "https://pokeapi.co/api/v2/evolution-chain/7/",
+    method: "GET"
+  })
+
+  promise1.then(
     (data) => {
       console.log(data);
     //Create pokemon ID
       const pokemonID = $('<p>').text("#"+data.id)
     //Create pokemon name
       const pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
-    //Create pokemon category
     //Create pokemon height (from decimeters to feet)
       const pokemonHeight = $('<p>').text((data.height/3.048).toFixed(2)+" feet tall")
     //Create pokemon weight (from hectograms to kilograms)
@@ -72,10 +77,20 @@ $('#submit_value').on('click', (data) => {
         .append(pokemonWeight)
         // .append(pokemonAbilities)
 
+      //Wrap sprite with div
+      $(pokemonSprite).wrap("<div class='sprite-wrap' />");
+
     },
     () => {
       console.log('Bad request');
-    }
+    },
+    promise2.then(
+      (data) => {
+      //Create evolution chain
+        const pokemonEvolution = $('<p>').text(data)
+        console.log(data);
+      }
+    )
   )
 
   })
