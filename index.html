@@ -10,15 +10,14 @@
 
 <body>
 
-    <header id="title_banner">
+    <header id="title_box">
       <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="title_image" class="character">
-      <h1>Pokédex</h1>
     </header>
 
     <div id="pokemon_search">
     <label for="pokemon_search">Pokemon Search - Type in Name of Number</label>
       <div>
-        <form>
+        <form onkeypress="return event.keyCode != 13">
             <input type='text' placeholder="Name/Number" id="input" value="" />
             <input type='button' value="Submit" id="submit_value" />
             <input type="button" value="Reset" id="reset_value" />

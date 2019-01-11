@@ -7,20 +7,21 @@ body {
 
 #title_image {
   height: auto;
-  width: 500px;
+  width: 200px;
   z-index: 2;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* animation: slide-in-blurred-right 02.0s cubic-bezier(0.750, 1.000, 0.100, 1.000) both; */
+  margin: auto;
+  margin-top: 20px;
 }
 
-#title_banner {
-  /* background-color: #f40400; */
-  width: auto;
-  height: 250px;
-  margin: 0px -2000px;
-  padding: 0px -2000px;
+#title_box {
+  background-color: white;
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px 2px black;
 }
 
 #input {
@@ -28,9 +29,17 @@ body {
 }
 
 header h1 {
-  color: black;
+  color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.60);
+  hsl(192, 17%, 99%);
+}
+
+.sprite {
+  width: 200px;
+  height: 200px;
+  animation: slide-in-blurred-right 1.0s cubic-bezier(0.850, 1.000, 0.150, 1.000) both;
 }
 
 /* ----------------------------------------------
