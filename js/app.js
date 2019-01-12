@@ -154,6 +154,8 @@ $(() => {
           //Adding descriptions to pokemon
           promise2.then(
             (data) => {
+              console.log(data);
+              console.log(data.id)
             const pokemonDescription = $('<p>')
               .text(data.flavor_text_entries[1].flavor_text)
             $('#pokemon-display-box')
@@ -179,8 +181,15 @@ $(() => {
       return randomNum(0, 718)
     }
 
+    const pokemonID = randomPokemon()
+
     const promise = $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + randomPokemon() + "/",
+      url: "https://pokeapi.co/api/v2/pokemon/" + pokemonID + "/",
+      method: "GET"
+    })
+
+    const promise2 = $.ajax ({
+      url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonID + "/",
       method: "GET"
     })
 
@@ -308,6 +317,21 @@ $(() => {
 
           //Wrap sprite with div
           $(pokemonSprite).wrap("<div class='sprite-wrap' />");
+
+          //Adding English descriptions to pokemon
+          promise2.then(
+            (data2) => {
+            let foundEnglishOnce = false;
+            for(let i = 0; i <= data2.flavor_text_entries.length; i++){
+              if (data2.flavor_text_entries[i].language.name === "en" && foundEnglishOnce === false){
+                const pokemonDescription = $('<p>')
+                  .text(data2.flavor_text_entries[i].flavor_text)
+                $('#pokemon-display-box')
+                  .append(pokemonDescription)
+                foundEnglishOnce = true;
+              }
+            }
+          });
 
         },
         () => {

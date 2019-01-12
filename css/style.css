@@ -42,7 +42,7 @@ button {
 }
 
 #input {
-  color: blue;
+  color: pink;
 }
 
 #pokemon-search-div {
@@ -54,7 +54,7 @@ button {
   border: 1px solid red;
   margin: 2em;
   width: 750px;
-  height: 500px;
+  /* height: 500px; */
 }
 
 /***************************/
