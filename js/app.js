@@ -1,9 +1,10 @@
 $(() => {
 
-  let pokemonDisplayBox = true;
   ///////////////////////////////////////////////////////////
   //Generate a random pokemon with "Submit" button//
   //////////////////////////////////////////////////////////
+  let pokemonDisplayBox = true;
+
   $('#submit-value').on('click', (data) => {
     const pokemonInput = $('#input').val().toLowerCase()
     console.log(pokemonInput);
@@ -13,8 +14,13 @@ $(() => {
       method: "GET"
     });
 
-    const promise2 = $.ajax({
-      url: "https://cors-anywhere.herokuapp.com/https://www.pokemon.com/us/api/pokedex/kalos",
+    // const promise2 = $.ajax({
+    //   url: "https://www.pokemon.com/us/api/pokedex/kalos",
+    //   method: "GET"
+    // })
+
+    const promise2 = $.ajax ({
+      url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonInput + "/",
       method: "GET"
     })
 
@@ -39,10 +45,10 @@ $(() => {
             $(pokemonWeight).append(pokemonAbilities)
           }
           //Create pokemon sprites
-          // const pokemonSprite = $('<img>')
-          //   .attr('src', data.sprites.front_default)
-          //   .addClass('sprite')
-          //create pokemon types
+          const pokemonSprite = $('<img>')
+            .attr('src', data.sprites.front_default)
+            .addClass('sprite')
+          //Create pokemon types and attach type-specific ID
           const typeDiv = $('<div>').addClass('type-div')
           const type1 = $('<p>')
             .text(data.types[0].type.name)
@@ -136,23 +142,23 @@ $(() => {
 
           // for(let i = 0; i <= 76; i++){
           //     const pokemonMoves = $('<p>').text(data.moves[i].move.name).addClass('sprite')
-          //     $('#pokemon-index').append(pokemonMoves)
+          //     $('#pokemon-display-box').append(pokemonMoves)
           // }
 
           //Attaching all pokemon elements
           $(typeDiv)
             .append(type1)
-          $('#pokemon-index')
-            // .append(pokemonSprite)
+          $('#pokemon-display-box')
+            .append(pokemonSprite)
             .append(pokemonID)
             .append(pokemonName)
             .append(typeDiv)
             .append(pokemonHeight)
             .append(pokemonWeight)
           // .append(pokemonAbilities)
-
           //Wrap sprite with div
-          // $(pokemonSprite).wrap("<div class='sprite-wrap' />");
+          $(pokemonSprite).wrap("<div class='sprite-wrap' />");
+
 
           pokemonDisplayBox = false;
 
@@ -160,26 +166,29 @@ $(() => {
 
 
 
-
-
           promise2.then(
-            (data2) => {
-              console.log(data2);
-            let cycledOnce = false;
-            for(let i = 0; i <= 954; i++){
-              if(pokemonNumPromise2 === data2[i].id && cycledOnce === false) {
-                console.log('SUCCESS');
-              const pokePicTest = $('<img>', )
-                .attr('src', data2[i].ThumbnailImage)
-                .addClass('.sprite')
-              $('#pokemon-index')
-                .prepend(pokePicTest)
+            (data) => {
+            console.log(data);
+          })
 
-              $(pokePicTest).wrap("<div class='sprite-wrap' />");
-              cycledOnce = true
-              }
-            }
-          });
+          // promise2.then(
+          //   (data2) => {
+          //     console.log(data2);
+          //   let cycledOnce = false;
+          //   for(let i = 0; i <= 954; i++){
+          //     if(pokemonNumPromise2 === data2[i].id && cycledOnce === false) {
+          //       console.log('SUCCESS');
+          //     const pokePicTest = $('<img>', )
+          //       .attr('src', data2[i].ThumbnailImage)
+          //       .addClass('.sprite')
+          //     $('#pokemon-display-box')
+          //       .prepend(pokePicTest)
+          //
+          //     $(pokePicTest).wrap("<div class='sprite-wrap' />");
+          //     cycledOnce = true
+          //     }
+          //   }
+          // });
 
 
 
@@ -328,7 +337,7 @@ $(() => {
           //Attaching all pokemon elements
           $(typeDiv)
             .append(type1)
-          $('#pokemon-index')
+          $('#pokemon-display-box')
             .append(pokemonSprite)
             .append(pokemonID)
             .append(pokemonName)
@@ -338,7 +347,6 @@ $(() => {
 
           //Wrap sprite with div
           $(pokemonSprite).wrap("<div class='sprite-wrap' />");
-          $()
 
         },
         () => {
@@ -353,7 +361,7 @@ $(() => {
   //Reset Pokemon values with "Reset" Button//
   ////////////////////////////////////////////
   $('#reset').on('click', () => {
-    $('#pokemon-index').children().remove()
+    $('#pokemon-display-box').children().remove()
     pokemonDisplayBox = true;
     // css('display', 'none')
   })

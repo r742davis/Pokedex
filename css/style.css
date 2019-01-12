@@ -1,5 +1,12 @@
+
+/* Imported fonts from Google Fonts website */
 @import url('https://fonts.googleapis.com/css?family=Roboto:100');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Jura');
+
+/* * {
+  border: 2px solid blue;
+} */
 
 body {
   /* background-color: #313131; */
@@ -7,6 +14,10 @@ body {
 
 p {
   font-family: 'Titillium Web', sans-serif;
+}
+
+label {
+  font-family: 'Jura', sans-serif;
 }
 
 button {
@@ -32,6 +43,11 @@ button {
 
 #input {
   color: blue;
+}
+
+#pokemon-search-div {
+  background-color: pink;
+  margin-bottom: 2em;
 }
 
 /***************************/
@@ -223,12 +239,13 @@ button {
   width: auto;
 }
 
-/* header h1 {
-  color: white;
+header h1 {
+  color: black;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Jura', sans-serif;
   text-shadow: 0 1px 2px rgba(0,0,0,0.60);
-} */
+}
+
 .sprite {
   width: 200px;
   height: 200px;
@@ -270,7 +287,11 @@ button {
     opacity: 1;
   }
 }
-
+/**
+ * ----------------------------------------
+ * animation color-change-5x
+ * ----------------------------------------
+ */
 @keyframes color-change-5x {
   0% {
     background: #19dcea;
