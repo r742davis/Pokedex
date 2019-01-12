@@ -165,10 +165,14 @@ $(() => {
 
 
 
-
+          //Adding descriptions to pokemon
           promise2.then(
             (data) => {
-            console.log(data);
+            console.log(data.flavor_text_entries[1].flavor_text);
+            const pokemonDescription = $('<p>')
+              .text(data.flavor_text_entries[1].flavor_text)
+            $('#pokemon-display-box')
+              .append(pokemonDescription)
           })
 
           // promise2.then(
