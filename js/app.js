@@ -1,8 +1,8 @@
 $(() => {
 
-  ///////////////////////////////////////////////////////////
-  //Generate a random pokemon with "Submit" button//
-  //////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
+  //Generate selected (name or number) pokemon with "Submit" button//
+  ///////////////////////////////////////////////////////////////////
   let pokemonDisplayBox = true;
 
   $('#submit-value').on('click', (data) => {
@@ -86,13 +86,11 @@ $(() => {
           }
           //Some pokemon do not have 2 types and thus return 2nd type as undefined; if not undefined, then list second type
           if (data.types[1] !== undefined) {
-            console.log('2nd Type CONFIRMED');
             const type2 = $('<p>')
               .text(data.types[1].type.name)
               .addClass('capitalize-name')
             $(typeDiv)
               .append(type2)
-            console.log(type2.text());
             if (type2.text() === "bug") {
               $(type2).attr('id', 'bug')
             } else if (type2.text() === "dark") {
@@ -130,8 +128,6 @@ $(() => {
             } else if (type2.text() === "water") {
               $(type2).attr('id', 'water')
             }
-          } else if (data.types[1] === undefined) {
-            console.log('2nd Type UNDEFINED');
           }
 
           // for(let i = 0; i <= 76; i++){
@@ -254,7 +250,6 @@ $(() => {
           }
           //Some pokemon do not have 2 types and thus return  2nd type as undefined; if not undefined, then list second type
           if (data.types[1] !== undefined) {
-            console.log('2nd Type CONFIRMED');
             const type2 = $('<p>')
               .text(data.types[1].type.name)
               .addClass('capitalize-name')
@@ -298,8 +293,6 @@ $(() => {
             } else if (type2.text() === "water") {
               $(type2).attr('id', 'water')
             }
-          } else if (data.types[1] === undefined) {
-            console.log('2nd Type UNDEFINED');
           }
 
           //Attaching all pokemon elements
