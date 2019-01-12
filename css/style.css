@@ -50,6 +50,13 @@ button {
   margin-bottom: 2em;
 }
 
+#pokemon-display-box {
+  border: 1px solid red;
+  margin: 2em;
+  width: 750px;
+  height: 500px;
+}
+
 /***************************/
 /* Pokemon type color id's */
 /***************************/
