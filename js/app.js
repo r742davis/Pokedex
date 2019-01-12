@@ -7,17 +7,11 @@ $(() => {
 
   $('#submit-value').on('click', (data) => {
     const pokemonInput = $('#input').val().toLowerCase()
-    console.log(pokemonInput);
 
     const promise1 = $.ajax({
       url: "https://pokeapi.co/api/v2/pokemon/" + pokemonInput + "/",
       method: "GET"
     });
-
-    // const promise2 = $.ajax({
-    //   url: "https://www.pokemon.com/us/api/pokedex/kalos",
-    //   method: "GET"
-    // })
 
     const promise2 = $.ajax ({
       url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonInput + "/",
@@ -159,46 +153,16 @@ $(() => {
           //Wrap sprite with div
           $(pokemonSprite).wrap("<div class='sprite-wrap' />");
 
-
           pokemonDisplayBox = false;
-
-
-
 
           //Adding descriptions to pokemon
           promise2.then(
             (data) => {
-            console.log(data.flavor_text_entries[1].flavor_text);
             const pokemonDescription = $('<p>')
               .text(data.flavor_text_entries[1].flavor_text)
             $('#pokemon-display-box')
               .append(pokemonDescription)
           })
-
-          // promise2.then(
-          //   (data2) => {
-          //     console.log(data2);
-          //   let cycledOnce = false;
-          //   for(let i = 0; i <= 954; i++){
-          //     if(pokemonNumPromise2 === data2[i].id && cycledOnce === false) {
-          //       console.log('SUCCESS');
-          //     const pokePicTest = $('<img>', )
-          //       .attr('src', data2[i].ThumbnailImage)
-          //       .addClass('.sprite')
-          //     $('#pokemon-display-box')
-          //       .prepend(pokePicTest)
-          //
-          //     $(pokePicTest).wrap("<div class='sprite-wrap' />");
-          //     cycledOnce = true
-          //     }
-          //   }
-          // });
-
-
-
-
-
-
         },
         () => {
           console.log('Bad request');
