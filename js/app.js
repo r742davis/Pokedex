@@ -173,23 +173,26 @@ $(() => {
   //Generate a random pokemon with "Random Pokemon" button//
   //////////////////////////////////////////////////////////
   $("#random-value").on("click", (data) => {
-    //Create functions that generate random numbers from 0 to 718
-    const randomNum = (min, max) => {
+    //Create functions that generate random numbers from 0 to 802
+    let randomNum = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1) + min)
     }
-    const randomPokemon = () => {
+    let randomPokemonID = () => {
       return randomNum(0, 718)
     }
+    let pokemonIndexNum = randomPokemonID();
+    //Put all pokemon creation in one function so that I can click previous or next buttons and create the previous/next pokemon
+    const pokemonCreator = () => {
 
-    const pokemonID = randomPokemon()
+    let numOfPokemon = 802;
 
-    const promise = $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + pokemonID + "/",
+    let promise = $.ajax({
+      url: "https://pokeapi.co/api/v2/pokemon/" + pokemonIndexNum + "/",
       method: "GET"
     })
 
-    const promise2 = $.ajax ({
-      url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonID + "/",
+    let promise2 = $.ajax ({
+      url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonIndexNum + "/",
       method: "GET"
     })
 
@@ -197,27 +200,27 @@ $(() => {
       promise.then(
         (data) => {
           //Create pokemon ID
-          const pokemonID = $('<p>').text("#" + data.id)
+          let pokemonID = $('<p>').text("#" + data.id)
           //Create pokemon name
-          const pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
+          let pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
           //Create pokemon height (from decimeters to feet)
-          const pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " feet tall")
+          let pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " feet tall")
           //Create pokemon weight (from hectograms to kilograms)
-          const pokemonWeight = $('<p>').text(data.weight / 10 + " kilograms")
+          let pokemonWeight = $('<p>').text(data.weight / 10 + " kilograms")
           //Create pokemon abilities
           for (let i = 0; i < data.abilities.length; i++) {
-            const pokemonAbilities = $('<p>')
+            let pokemonAbilities = $('<p>')
               .text(data.abilities[i].ability.name)
               .addClass('capitalize-name')
             $(pokemonWeight).append(pokemonAbilities)
           }
           //Create pokemon sprites
-          const pokemonSprite = $('<img>')
+          let pokemonSprite = $('<img>')
             .attr('src', data.sprites.front_default)
             .addClass('sprite')
           //create pokemon types
-          const typeDiv = $('<div>').addClass('type-div')
-          const type1 = $('<p>')
+          let typeDiv = $('<div>').addClass('type-div')
+          let type1 = $('<p>')
             .text(data.types[0].type.name)
             .addClass('capitalize-name')
           if (type1.text() === "bug") {
@@ -259,7 +262,7 @@ $(() => {
           }
           //Some pokemon do not have 2 types and thus return  2nd type as undefined; if not undefined, then list second type
           if (data.types[1] !== undefined) {
-            const type2 = $('<p>')
+            let type2 = $('<p>')
               .text(data.types[1].type.name)
               .addClass('capitalize-name')
             $(typeDiv)
@@ -304,6 +307,32 @@ $(() => {
             }
           }
 
+//WORK ON PART IF YOU HAVE TIME//
+          // //Display previous and next buttons
+          // $('.carousel-button').css('display', "block")
+          // //Create previous and next buttons
+          // $('.next').on('click', () => {
+          //   $('#pokemon-display-box').children().remove()
+          //   pokemonDisplayBox = true;
+          //   pokemonIndexNum++
+          //   pokemonCreator();
+          //   // if (pokemonID <= numOfPokemon) {
+          //   //   $('#pokemon-display-box').children().remove()
+          //   //   pokemonDisplayBox = true;
+          //   //   // pokemonCurrentIndex++
+          //   //   // pokemonCreator();
+          //   // } else {
+          //   //   $('.carousel-button').css('display', 'none')
+          //   // }
+          //
+          // //Show next pokemon
+          //
+          // })
+          // $('.previous').on('click', () => {
+          //   $('#pokemon-display-box').children().remove()
+          //   pokemonDisplayBox = true;
+          // })
+
           //Attaching all pokemon elements
           $(typeDiv)
             .append(type1)
@@ -324,7 +353,7 @@ $(() => {
             let foundEnglishOnce = false;
             for(let i = 0; i <= data2.flavor_text_entries.length; i++){
               if (data2.flavor_text_entries[i].language.name === "en" && foundEnglishOnce === false){
-                const pokemonDescription = $('<p>')
+                let pokemonDescription = $('<p>')
                   .text(data2.flavor_text_entries[i].flavor_text)
                 $('#pokemon-display-box')
                   .append(pokemonDescription)
@@ -339,6 +368,8 @@ $(() => {
         },
       )
     }
+  }
+  pokemonCreator();
 
   });
 
