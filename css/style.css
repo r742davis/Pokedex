@@ -5,9 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Jura');
 
 body {
-  background-image: url(
-        r742davis.github.io/images/pokemon-wallpaper.jpg
-      );
+  background-image: url(https://github.com/r742davis/r742davis.github.io/blob/master/images/pokemon-wallpaper.jpg);
   background-size: contain;
   background-repeat: no-repeat;
 }
