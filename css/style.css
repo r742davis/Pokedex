@@ -449,27 +449,26 @@ label {
 }
 #pokemon-search-div {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  align-items: center;
-  text-align: center;
+  /* grid-column: 1; */
+  /* grid-template-columns: 1fr 1fr; */
+  justify-content: center;
   background-color: #dd0000;
-  padding: 20px;
+  margin: 0 auto;
 	animation: flip-in-hor-bottom 2.0s cubic-bezier(0.100, 0.600, 0.600, 0.900) 1.0s both;
   /* display: none; */
 }
 input[type="button"] {
   -webkit-appearance: none;
   font-family: 'Jura', sans-serif;
-  font-size: 24px;
+  font-size: 12px;
   color: #dd0000;
   padding: 10px;
 }
 input[type="text"] {
   -webkit-appearance: none;
   font-family: 'Jura', sans-serif;
-  font-size: 24px;
-  width: 250px;
+  font-size: 12px;
+  width: 200px;
   height: 30px;
 }
 input:hover {
