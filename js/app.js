@@ -27,10 +27,10 @@ $(() => {
 
           //Create pokemon name
           const pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
-          //Create pokemon height (from decimeters to feet)
-          const pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " feet tall")
+          //Create pokemon height (from decimeters to ft)
+          const pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " ft")
           //Create pokemon weight (from hectograms to kilograms)
-          const pokemonWeight = $('<p>').text(data.weight / 10 + " kilograms")
+          const pokemonWeight = $('<p>').text(data.weight / 10 + " kg")
           //Create pokemon abilities
           for (let i = 0; i < data.abilities.length; i++) {
             const pokemonAbilities = $('<p>')
@@ -199,20 +199,32 @@ $(() => {
     if (pokemonDisplayBox === true) {
       promise.then(
         (data) => {
+          pokemonDisplayBox = false;
           //Create pokemon ID
-          let pokemonID = $('<p>').text("#" + data.id)
+          let pokemonID = $('<h2>').text("#" + data.id)
           //Create pokemon name
-          let pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
-          //Create pokemon height (from decimeters to feet)
-          let pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " feet tall")
+          let pokemonName = $('<h2>').text(data.name).addClass('capitalize-name')
+          //Create pokemon height (from decimeters to ft)
+          const heightTitle = $('<h3>').text('Height')
+          let pokemonHeight = $('<p>')
+            .text((data.height / 3.048).toFixed(2) + " ft")
+            .prepend(heightTitle)
           //Create pokemon weight (from hectograms to kilograms)
-          let pokemonWeight = $('<p>').text(data.weight / 10 + " kilograms")
+          const weightTitle = $('<h3>').text('Weight')
+          let pokemonWeight = $('<p>')
+            .text(data.weight / 10 + " kg")
+            .prepend(weightTitle)
+
           //Create pokemon abilities
+          const abilitiesTitle = $('<h3>').text('Abilities')
+          const abilitiesDiv = $('<div>')
+            .prepend(abilitiesTitle)
           for (let i = 0; i < data.abilities.length; i++) {
             let pokemonAbilities = $('<p>')
               .text(data.abilities[i].ability.name)
               .addClass('capitalize-name')
-            $(pokemonWeight).append(pokemonAbilities)
+            $(abilitiesDiv)
+              .append(pokemonAbilities)
           }
           //Create pokemon sprites
           let pokemonSprite = $('<img>')
@@ -330,38 +342,45 @@ $(() => {
           // })
           // $('.previous').on('click', () => {
           //   $('#pokemon-display-box').children().remove()
-          //   pokemonDisplayBox = true;
+
           // })
 
-          //Attaching all pokemon elements
-          $(typeDiv)
-            .append(type1)
-          $('#pokemon-display-box')
-            .append(pokemonSprite)
-            .append(pokemonID)
-            .append(pokemonName)
-            .append(typeDiv)
-            .append(pokemonHeight)
-            .append(pokemonWeight)
-
-          //Wrap sprite with div
-          $(pokemonSprite).wrap("<div class='sprite-wrap' />");
-
-          //Adding English descriptions to pokemon
-          promise2.then(
+          const descriptionGenerator = () => promise2.then(
             (data2) => {
             let foundEnglishOnce = false;
             for(let i = 0; i <= data2.flavor_text_entries.length; i++){
               if (data2.flavor_text_entries[i].language.name === "en" && foundEnglishOnce === false){
                 let pokemonDescription = $('<p>')
                   .text(data2.flavor_text_entries[i].flavor_text)
-                $('#pokemon-display-box')
-                  .append(pokemonDescription)
+                $(divRight)
+                  .prepend(pokemonDescription)
                 foundEnglishOnce = true;
               }
             }
           });
 
+          const divLeft = $('<div>')
+            .addClass('div-left')
+            .append(pokemonID)
+            .append(pokemonName)
+            .append(pokemonSprite)
+            .append(typeDiv)
+          const divRight = $('<div>')
+            .addClass('div-right')
+            .append(descriptionGenerator())
+            .append(pokemonHeight)
+            .append(pokemonWeight)
+            .append(abilitiesDiv)
+          $(typeDiv)
+            .prepend($('<h3>').text('Type'))
+            .append(type1)
+
+          $('#pokemon-display-box')
+            .append(divLeft)
+            .append(divRight)
+
+          //Wrap sprite with div
+          $(pokemonSprite).wrap("<div class='sprite-wrap' />");
         },
         () => {
           console.log('Bad request');
