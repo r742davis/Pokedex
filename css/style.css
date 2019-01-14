@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Jura');
 
 body {
-  background: url(/Users/richiedavis/dev/Project_1/r742davis.github.io/images/Pokemonstarters.jpg);
+  background: url(../images/Pokemonstarters.jpg);
   background-size: contain;
   background-repeat: no-repeat;
 }
