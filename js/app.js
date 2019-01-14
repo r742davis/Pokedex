@@ -5,8 +5,8 @@ $(() => {
   ///////////////////////////////////////////////////////////////////
   let pokemonDisplayBox = true;
 
-  $('#submit-value').on('click', (data) => {
-    const pokemonInput = $('#input').val().toLowerCase()
+  $('#submit-input').on('click', (data) => {
+    const pokemonInput = $('#input-box').val().toLowerCase()
 
     const promise1 = $.ajax({
       url: "https://pokeapi.co/api/v2/pokemon/" + pokemonInput + "/",
@@ -172,7 +172,7 @@ $(() => {
   //////////////////////////////////////////////////////////
   //Generate a random pokemon with "Random Pokemon" button//
   //////////////////////////////////////////////////////////
-  $("#random-value").on("click", (data) => {
+  $("#random-input").on("click", (data) => {
     //Create functions that generate random numbers from 0 to 802
     let randomNum = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1) + min)
@@ -374,10 +374,10 @@ $(() => {
           $(typeDiv)
             .prepend($('<h3>').text('Type'))
             .append(type1)
-
           $('#pokemon-display-box')
             .append(divLeft)
             .append(divRight)
+            .css('background-color', '#eaeaed')
 
           //Wrap sprite with div
           $(pokemonSprite).wrap("<div class='sprite-wrap' />");
@@ -395,7 +395,7 @@ $(() => {
   ////////////////////////////////////////////
   //Reset Pokemon values with "Reset" Button//
   ////////////////////////////////////////////
-  $('#reset').on('click', () => {
+  $('#reset-input').on('click', () => {
     $('#pokemon-display-box').children().remove()
     pokemonDisplayBox = true;
     // css('display', 'none')

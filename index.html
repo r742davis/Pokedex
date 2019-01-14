@@ -12,7 +12,7 @@
 <body>
 
   <header id="title-box">
-    <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="title-image" class="character">
+    <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="pokemon-image" class="character">
   </header>
     <h1>Pokédex</h1>
   <!-- Pokemon search div with button functionality -->
@@ -20,10 +20,10 @@
     <label for="pokemon_search">Pokémon Search - Type in Name or Number (1 - 802)</label>
     <div>
       <form onkeypress="return event.keyCode != 13">
-        <input type='text' placeholder="Name/Number" id="input" value="" />
-        <input type='button' value="Submit" id="submit-value" />
-        <input type="button" value="Reset" id="reset" />
-        <input type="button" value="Random Pokemon" id="random-value"
+        <input type='text' placeholder="Name/Number" id="input-box" value="" />
+        <input type='button' value="Submit" id="submit-input" />
+        <input type="button" value="Reset" id="reset-input" />
+        <input type="button" value="Random Pokemon" id="random-input" />
       </form>
     </div>
   </div>
