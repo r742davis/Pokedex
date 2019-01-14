@@ -205,9 +205,6 @@ $(() => {
   $('#reset-input').on('click', () => {
     $('#pokemon-display-box').empty()
     pokemonDisplayBox = true;
-    pokemonIndexNum = 0;
-    randomNum = 0;
-    randomPokemonID = 0;
   })
 
 });
@@ -223,7 +220,7 @@ $(() => {
       return Math.floor(Math.random() * (max - min + 1) + min)
     }
     let randomPokemonID = () => {
-      return randomNum(0, 718)
+      return randomNum(0, 802)
     }
     let pokemonIndexNum = randomPokemonID();
     //Put all pokemon creation in one function so that I can click previous or next buttons and create the previous/next pokemon
@@ -410,13 +407,14 @@ $(() => {
     }
   }
   //Creates pokemon on click of Random Pokemon button
+  if (pokemonDisplayBox === true)
   pokemonCreator();
 
   /////////////////////////////////////////
   //Pokemon number carousel functionality//
   /////////////////////////////////////////
   //Next button
-  if (pokemonIndexNum <= 802) {
+
    $('.next').on('click', () => {
     $('#pokemon-display-box')
       .empty()
@@ -424,7 +422,7 @@ $(() => {
     pokemonIndexNum++
     pokemonCreator();
     })
-  }
+
   //Previous button
   if (pokemonIndexNum > 0) {
    $('.previous').on('click', () => {
@@ -436,11 +434,13 @@ $(() => {
     })
   }
     $('#reset-input').on('click', () => {
-      $('#pokemon-display-box').empty()
+      $('#pokemon-display-box')
+        .empty()
       pokemonDisplayBox = true;
-      pokemonIndexNum = 0;
-      randomNum = 0;
-      randomPokemonID = 0;
+      pokemonIndexNum = undefined;
+      randomNum = undefined;
+      randomPokemonID = undefined;
+      $('.carousel-button').css('display', "none")
     })
   });
 
