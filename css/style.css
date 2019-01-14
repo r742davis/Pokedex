@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Jura');
 
 body {
-  background: url(https://github.com/r742davis/r742davis.github.io/blob/master/images/Pokemonstarters.jpg);
+  background: url(/Users/richiedavis/dev/Project_1/r742davis.github.io/images/Pokemonstarters.jpg);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -591,6 +591,16 @@ input:hover {
 @media (min-width: 1250px) {
   h1 {
     margin-top: 500px;
+  }
+  #pokemon-image {
+    height: auto;
+    width: 500px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: -50px;
+    font-weight: bold;
+    animation: bounce-in-top 1.1s both;
   }
 }
 /******************************/
