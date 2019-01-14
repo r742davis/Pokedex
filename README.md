@@ -1,6 +1,6 @@
 # Pokemon Pokedex - Project 1 for General Assembly
 
-####Link: https://github.com/r742davis/r742davis.github.io
+####Link: https://r742davis.github.io/
 
 This is a free-to-use Pokedex created with the PokeAPI!
 
