@@ -11,13 +11,15 @@
 
 <body>
 
+<div id="modal"></div>
+
   <header id="title-box">
     <img src="images/pokemon_logo.png" alt="Pokemon Logo" id="pokemon-image" class="character">
   </header>
     <h1>Pokédex</h1>
   <!-- Pokemon search div with button functionality -->
   <div id="pokemon-search-div">
-    <label for="pokemon_search">Pokémon Search - Type in Name or Number (1 - 802)</label>
+    <label for="pokemon_search">Please Type in Name or Number (#1 - 802)</label>
     <div>
       <form onkeypress="return event.keyCode != 13">
         <input type='text' placeholder="Name/Number" id="input-box" value="" />
@@ -28,15 +30,15 @@
     </div>
   </div>
 
-  <div id="main-container"
+  <div id="main-container">
       <div class="carousel-button previous">
-        <span class="chevron-left"></span>
+        <img src="/Users/richiedavis/dev/Project_1/r742davis.github.io/images/left-arrow.png" alt="Previous Pokemon">
       </div>
 
         <div id="pokemon-display-box"></div>
 
       <div class="carousel-button next">
-        <span class="chevron-right"></span>
+        <img src="/Users/richiedavis/dev/Project_1/r742davis.github.io/images/right-arrow.png" alt="Next Pokemon">
       </div>
   </div>
 

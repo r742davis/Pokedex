@@ -3,48 +3,63 @@ $(() => {
   ///////////////////////////////////////////////////////////////////
   //Generate selected (name or number) pokemon with "Submit" button//
   ///////////////////////////////////////////////////////////////////
+
   let pokemonDisplayBox = true;
 
   $('#submit-input').on('click', (data) => {
+    //Displays carousel buttons
     const pokemonInput = $('#input-box').val().toLowerCase()
 
+    //Pokemon creation function
+    const pokemonCreator = () => {
+
     const promise1 = $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + pokemonInput + "/",
+      url: "https://pokeapi.co/api/v2/pokemon/" + (pokemonInput || pokemonIndexNum) + "/",
       method: "GET"
     });
 
     const promise2 = $.ajax ({
-      url: "https://pokeapi.co/api/v2/pokemon-species/" + pokemonInput + "/",
+      url: "https://pokeapi.co/api/v2/pokemon-species/" + (pokemonInput || pokemonIndexNum) + "/",
       method: "GET"
     })
 
     if (pokemonDisplayBox === true) {
       promise1.then(
         (data) => {
+          pokemonDisplayBox = false
           //Create pokemon ID
-          const pokemonID = $('<p>').text("#" + data.id)
-          const pokemonNumPromise2 = data.id
-
+          let pokemonID = $('<h2>').text("#" + data.id)
           //Create pokemon name
-          const pokemonName = $('<p>').text(data.name).addClass('capitalize-name')
+          let pokemonName = $('<h2>').text(data.name).addClass('capitalize-name')
           //Create pokemon height (from decimeters to ft)
-          const pokemonHeight = $('<p>').text((data.height / 3.048).toFixed(2) + " ft")
+          const heightTitle = $('<h3>').text('Height')
+          let pokemonHeight = $('<p>')
+            .text((data.height / 3.048).toFixed(2) + " ft")
+            .prepend(heightTitle)
           //Create pokemon weight (from hectograms to kilograms)
-          const pokemonWeight = $('<p>').text(data.weight / 10 + " kg")
+          const weightTitle = $('<h3>').text('Weight')
+          let pokemonWeight = $('<p>')
+            .text(data.weight / 10 + " kg")
+            .prepend(weightTitle)
+
           //Create pokemon abilities
+          const abilitiesTitle = $('<h3>').text('Abilities')
+          const abilitiesDiv = $('<div>')
+            .prepend(abilitiesTitle)
           for (let i = 0; i < data.abilities.length; i++) {
-            const pokemonAbilities = $('<p>')
+            let pokemonAbilities = $('<p>')
               .text(data.abilities[i].ability.name)
               .addClass('capitalize-name')
-            $(pokemonWeight).append(pokemonAbilities)
+            $(abilitiesDiv)
+              .append(pokemonAbilities)
           }
           //Create pokemon sprites
-          const pokemonSprite = $('<img>')
+          let pokemonSprite = $('<img>')
             .attr('src', data.sprites.front_default)
             .addClass('sprite')
-          //Create pokemon types and attach type-specific ID
-          const typeDiv = $('<div>').addClass('type-div')
-          const type1 = $('<p>')
+          //create pokemon types
+          let typeDiv = $('<div>').addClass('type-div')
+          let type1 = $('<p>')
             .text(data.types[0].type.name)
             .addClass('capitalize-name')
           if (type1.text() === "bug") {
@@ -129,50 +144,80 @@ $(() => {
               $(type2).attr('id', 'water')
             }
           }
+          //Description function created to pass through different part of api data, then loops to find the English version
+          const descriptionGenerator = () => promise2.then(
+            (data2) => {
+            let foundEnglishOnce = false;
+            for(let i = 0; i <= data2.flavor_text_entries.length; i++){
+              if (data2.flavor_text_entries[i].language.name === "en" && foundEnglishOnce === false){
+                let pokemonDescription = $('<p>')
+                  .text(data2.flavor_text_entries[i].flavor_text)
+                $(divRight)
+                  .prepend(pokemonDescription)
+                foundEnglishOnce = true;
+              }
+            }
+          });
 
-          // for(let i = 0; i <= 76; i++){
-          //     const pokemonMoves = $('<p>').text(data.moves[i].move.name).addClass('sprite')
-          //     $('#pokemon-display-box').append(pokemonMoves)
-          // }
-
-          //Attaching all pokemon elements
-          $(typeDiv)
-            .append(type1)
-          $('#pokemon-display-box')
-            .append(pokemonSprite)
+          //Attaching all divs to main "pokemon-display-box"
+          const divLeft = $('<div>')
+            .addClass('div-left')
             .append(pokemonID)
             .append(pokemonName)
+            .append(pokemonSprite)
             .append(typeDiv)
+          const divRight = $('<div>')
+            .addClass('div-right')
+            .append(descriptionGenerator())
             .append(pokemonHeight)
             .append(pokemonWeight)
-          // .append(pokemonAbilities)
+            .append(abilitiesDiv)
+          $(typeDiv)
+            .prepend($('<h3>').text('Type'))
+            .append(type1)
+          $('#pokemon-display-box')
+            .append(divLeft)
+            .append(divRight)
+            .css('background-color', '#eaeaed')
+
           //Wrap sprite with div
           $(pokemonSprite).wrap("<div class='sprite-wrap' />");
 
-          pokemonDisplayBox = false;
-
-          //Adding descriptions to pokemon
-          promise2.then(
-            (data) => {
-              console.log(data);
-              console.log(data.id)
-            const pokemonDescription = $('<p>')
-              .text(data.flavor_text_entries[1].flavor_text)
-            $('#pokemon-display-box')
-              .append(pokemonDescription)
-          })
+          if (wrapper = undefined) {
+            $('#pokemon-display-box').wrap("<div class='wrapper' />")
+            $('.wrapper')
+              .prepend(carouselButtonPrevious)
+              .append(carouselButtonNext)
+            let wrapper = 0;
+          }
+          if (wrapper === 0) {
+            $('.wrapper').remove()
+          }
         },
         () => {
           console.log('Bad request');
         },
       )
     }
-  });
+  }
+  pokemonCreator();
+
+  $('#reset-input').on('click', () => {
+    $('#pokemon-display-box').empty()
+    pokemonDisplayBox = true;
+    pokemonIndexNum = 0;
+    randomNum = 0;
+    randomPokemonID = 0;
+  })
+
+});
 
   //////////////////////////////////////////////////////////
   //Generate a random pokemon with "Random Pokemon" button//
   //////////////////////////////////////////////////////////
   $("#random-input").on("click", (data) => {
+    //Displays carousel buttons
+    $('.carousel-button').css('display', "block")
     //Create functions that generate random numbers from 0 to 802
     let randomNum = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1) + min)
@@ -319,32 +364,7 @@ $(() => {
             }
           }
 
-//WORK ON PART IF YOU HAVE TIME//
-          // //Display previous and next buttons
-          // $('.carousel-button').css('display', "block")
-          // //Create previous and next buttons
-          // $('.next').on('click', () => {
-          //   $('#pokemon-display-box').children().remove()
-          //   pokemonDisplayBox = true;
-          //   pokemonIndexNum++
-          //   pokemonCreator();
-          //   // if (pokemonID <= numOfPokemon) {
-          //   //   $('#pokemon-display-box').children().remove()
-          //   //   pokemonDisplayBox = true;
-          //   //   // pokemonCurrentIndex++
-          //   //   // pokemonCreator();
-          //   // } else {
-          //   //   $('.carousel-button').css('display', 'none')
-          //   // }
-          //
-          // //Show next pokemon
-          //
-          // })
-          // $('.previous').on('click', () => {
-          //   $('#pokemon-display-box').children().remove()
-
-          // })
-
+          //Description function created to pass through different part of api data, then loops to find the English version
           const descriptionGenerator = () => promise2.then(
             (data2) => {
             let foundEnglishOnce = false;
@@ -359,6 +379,7 @@ $(() => {
             }
           });
 
+          //Attaching all divs to main "pokemon-display-box"
           const divLeft = $('<div>')
             .addClass('div-left')
             .append(pokemonID)
@@ -388,18 +409,64 @@ $(() => {
       )
     }
   }
+  //Creates pokemon on click of Random Pokemon button
   pokemonCreator();
 
+  /////////////////////////////////////////
+  //Pokemon number carousel functionality//
+  /////////////////////////////////////////
+  //Next button
+  if (pokemonIndexNum <= 802) {
+   $('.next').on('click', () => {
+    $('#pokemon-display-box')
+      .empty()
+    pokemonDisplayBox = true;
+    pokemonIndexNum++
+    pokemonCreator();
+    })
+  }
+  //Previous button
+  if (pokemonIndexNum > 0) {
+   $('.previous').on('click', () => {
+    $('#pokemon-display-box')
+      .empty()
+    pokemonDisplayBox = true;
+    pokemonIndexNum--
+    pokemonCreator();
+    })
+  }
+    $('#reset-input').on('click', () => {
+      $('#pokemon-display-box').empty()
+      pokemonDisplayBox = true;
+      pokemonIndexNum = 0;
+      randomNum = 0;
+      randomPokemonID = 0;
+    })
   });
 
   ////////////////////////////////////////////
   //Reset Pokemon values with "Reset" Button//
   ////////////////////////////////////////////
-  $('#reset-input').on('click', () => {
-    $('#pokemon-display-box').children().remove()
-    pokemonDisplayBox = true;
-    // css('display', 'none')
-  })
+  // $('#reset-input').on('click', () => {
+  //   $('#pokemon-display-box').empty()
+  //   pokemonDisplayBox = true;
+  //   pokemonIndexNum = 0;
+  //   // css('display', 'none')
+  // })
+  ////////////////////////////
+  //Modal on webpage opening//
+  ////////////////////////////
+  // const $modal = $('#modal')
+  // const openModal = () => {
+  //   const $welcomeMessage = $('<h2>')
+  //     .text('Welcome!')
+  //   const $pokemonWelcome = $('<img src="/Users/richiedavis/dev/Project_1/r742davis.github.io/images/pokemon-wallpaper.jpg" />')
+  //   $modal
+  //     .css('display', 'flex')
+  //     .append($pokemonWelcome)
+  // }
+  //
+  // openModal()
 
 
 })
