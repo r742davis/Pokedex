@@ -433,6 +433,9 @@ $(() => {
     pokemonCreator();
     })
   }
+    ////////////////////////////////////////////
+    //Reset Pokemon values with "Reset" Button//
+    ////////////////////////////////////////////
     $('#reset-input').on('click', () => {
       $('#pokemon-display-box')
         .empty()
@@ -444,15 +447,6 @@ $(() => {
     })
   });
 
-  ////////////////////////////////////////////
-  //Reset Pokemon values with "Reset" Button//
-  ////////////////////////////////////////////
-  // $('#reset-input').on('click', () => {
-  //   $('#pokemon-display-box').empty()
-  //   pokemonDisplayBox = true;
-  //   pokemonIndexNum = 0;
-  //   // css('display', 'none')
-  // })
   ////////////////////////////
   //Modal on webpage opening//
   ////////////////////////////
